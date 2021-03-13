@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Sign-In</title>
+  <link rel="icon" href="http://<%= ip %>:3100/assets/?loc=img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/mdb.min.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/style.css">
+  <link href="http://<%= ip %>:3100/assets/?loc=css/addons/datatables.min.css" rel="stylesheet">
+
+</head>
+<style>
+  body {
+height: 100%;
+background-color: #252525;
+text-color:#6c757d !important;
+}
+.animated{
+  animation-duration: 7s;
+}
+.form-div{
+  width: 300px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: thin;
+  border-color: #6c757d;
+}
+.frm-ctrl{
+  margin-top: 30px !important;
+  margin-left: 60px !important;
+  width:180px;
+  color: #6c757d !important;
+  border-bottom: 1px solid #6c757d !important;
+}
+.frm-ctrl-last{
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
+  margin-left: 60px !important;
+  width:180px;
+  color: #6c757d !important;
+}
+.btn-outline-warning{
+  border: 2px solid #6c757d !important;
+}
+a{
+  color: #6c757d !important;
+}
+.active-yellow-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.active-yellow-2 input.form-control[type=password]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.md-form{
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+</style>
+<header>
+  <nav class="mb-1 navbar navbar-expand-lg navbar-dark top lighten-1">
+  <a class="navbar-brand" href="#"><strong>FTP Server</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+    aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="http://<%=ip%>:3000/">Home
+        </a>
+      </li>
+      <% if(loggedIn == "true") { %>
+      <li class="nav-item">
+          <a class="nav-link" href="http://<%= ip %>:3100/logs">Logs</a>
+      </li>
+      <!-- <li class="nav-item">
+          <a class="nav-link" href="http://<%= ip %>:3100/setPerm">Set Permissions</a>
+      </li> -->
+      <% } %>
+      <!--<div class="custom-control custom-switch">
+        <input type="s" class="custom-control-input" id="customSwitches">
+        <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+      </div>-->
+
+      <div class="form-inline d-flex justify-content md-form form-sm active-yellow-2">
+        <input class="form-control form-control-sm mr-3 w-75" id="searchb" value="" type="text" placeholder="Search" aria-label="Search" oninput="search(this.id)" autofocus>
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </div>
+    </ul>
+    <% if(loggedIn == "true") { %>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link" href="http://<%= ip %>:3100/logout">Logout</a>
+      </li>
+    </ul>
+    <% } %>
+  </div>
+</nav>
+
+</header>
+<body>
+  <div style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="flex-center flex-column">
+            <% if(success == "Success"){ %>
+              <p class="animated fadeIn text-muted" style="padding-top:200px;padding-bottom:10px;">
+                <font size="100px">Success!</font>
+              </p>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/jquery.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/popper.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/mdb.min.js"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/addons/datatables.min.js"></script>
+<script type="text/javascript">
+  $('#popoverData').popover();
+</script>
+
+
+</body>
+</html>

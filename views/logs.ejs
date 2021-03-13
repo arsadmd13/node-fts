@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Sign-Up</title>
+  <link rel="icon" href="http://<%= ip %>:3100/assets/?loc=img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/mdb.min.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/style.css">
+  <link href="http://<%= ip %>:3100/assets/?loc=css/addons/datatables.min.css" rel="stylesheet">
+
+</head>
+<script>
+  Date.prototype.toShortFormat = function() {
+    let monthNames =["Jan","Feb","Mar","Apr",
+                      "May","Jun","Jul","Aug",
+                      "Sep", "Oct","Nov","Dec"];
+    let tempDay = this.getDate();
+    if(tempDay >= 1 && tempDay <= 9){
+      var day = "0"+tempDay
+    } else {
+      var day = tempDay
+    }
+    let monthIndex = this.getMonth();
+    let monthName = monthNames[monthIndex];
+    let year = this.getFullYear();
+    return `${monthName} ${day} ${year}`;
+  }
+
+  function search(id){
+    //if(id === "date"){
+      var date = document.getElementById(id).value
+      var newDate = new Date(date).toShortFormat()
+      <% for(var i = 0; i < totUsers; i++){ %>
+        <% var currentUser = data[0]['user'+i] %>
+        if(document.getElementById("user").value !== "" && document.getElementById("type").value === ""){
+          if(document.getElementById("user").value === "<%= data[0]['user'+i] %>"){
+            <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+              var eleId = "<%= data[0]['user'+i] %><%= j %>logtime"
+              var element = document.getElementById(eleId).innerText
+              if(element.includes(new Date(date).toShortFormat()) || element.includes(date)){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            <% } %>
+          }
+        } else if(document.getElementById("user").value === "" && document.getElementById("type").value !== ""){
+          <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+            var timeId = "<%= data[0]['user'+i] %><%= j %>logtime"
+            var timeVal = document.getElementById(timeId).innerText
+            var msgId = "<%= data[0]['user'+i] %><%= j %>logmsg"
+            var msgVal = document.getElementById(msgId).innerText
+            if(timeVal.includes(new Date(date).toShortFormat()) || timeVal.includes(date)){
+              if(document.getElementById("type").value === "Login"){
+                if(msgVal.includes("Logged In") || msgVal.includes("Logged Out")){
+                  $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+                } else {
+                  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+                }
+              } else if(document.getElementById("type").value === "Signup"){
+                if(msgVal.includes("Signed Up")){
+                  $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+                } else {
+                  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+                }
+              } else if(document.getElementById("type").value === "File Access"){
+                if(msgVal.includes("File Accessed")){
+                  $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+                } else {
+                  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+                }
+              }
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          <% } %>
+        } else if(document.getElementById("user").value !== "" && document.getElementById("type").value !== ""){
+          <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+            if(document.getElementById("user").value === "<%= data[0]['user'+i] %>"){
+              var timeId = "<%= data[0]['user'+i] %><%= j %>logtime"
+              var timeVal = document.getElementById(timeId).innerText
+              var msgId = "<%= data[0]['user'+i] %><%= j %>logmsg"
+              var msgVal = document.getElementById(msgId).innerText
+              if(timeVal.includes(new Date(date).toShortFormat()) || timeVal.includes(date)){
+                if(document.getElementById("type").value === "Login"){
+                  if(msgVal.includes("Logged In") || msgVal.includes("Logged Out")){
+                    console.log("hgfv")
+                    $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                    document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+                  } else {
+                    console.log("bnnn")
+                    document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+                  }
+                } else if(document.getElementById("type").value === "Signup"){
+                  if(msgVal.includes("Signed Up")){
+                    $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                    document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+                  } else {
+                    document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+                  }
+                } else if(document.getElementById("type").value === "File Access"){
+                  if(msgVal.includes("File Accessed")){
+                    $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                    document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+                  } else {
+                    document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+                  }
+                }
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            } else {
+              $("#user<%= data[0]['user' + i] %>Collapse").collapse('hide');
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          <% } %>
+        } else {
+          <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+            var eleId = "<%= data[0]['user'+i] %><%= j %>logtime"
+            var element = document.getElementById(eleId).innerText
+            if(element.includes(new Date(date).toShortFormat()) || element.includes(date)){
+              $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          <% } %>
+        }
+      <% } %>
+  }
+
+  function searchByType(id){
+    var type = document.getElementById(id).value
+    <% for(var i = 0; i < totUsers; i++){ %>
+      <% var currentUser = data[0]['user'+i] %>
+      if(document.getElementById("user").value !== "" && document.getElementById("date").value === ""){
+        if(document.getElementById("user").value === "<%= data[0]['user'+i] %>"){
+          <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+            var eleId = "<%= data[0]['user'+i] %><%= j %>logmsg"
+            var element = document.getElementById(eleId).innerText
+            if(type === "Login"){
+              if(element.includes("Logged In") || element.includes("Logged Out")){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            } else if(type === "File Access"){
+              if(element.includes("File Accessed")){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            } else if(type === "Signup"){
+              if(element.includes("Signed Up")){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            }
+          <% } %>
+        } else {
+          $("#user<%= data[0]['user' + i] %>Collapse").collapse('hide');
+          document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+        }
+      } else if(document.getElementById("user").value === "" && document.getElementById("date").value !== ""){
+        //if(document.getElementById("user").value === "<%= data[0]['user'+i] %>"){
+        var date = document.getElementById('date').value
+        <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+          var timeId = "<%= data[0]['user'+i] %><%= j %>logtime"
+          var timeVal = document.getElementById(timeId).innerText
+          var eleId = "<%= data[0]['user'+i] %><%= j %>logmsg"
+          var element = document.getElementById(eleId).innerText
+          if(type === "Login"){
+            if(timeVal.includes(new Date(date).toShortFormat()) || timeVal.includes(date)){
+              if(element.includes("Logged In") || element.includes("Logged Out")){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          } else if(type === "File Access"){
+            if(timeVal.includes(new Date(date).toShortFormat()) || timeVal.includes(date)){
+              if(element.includes("File Accessed")){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          } else if(type === "Signup"){
+            if(timeVal.includes(new Date(date).toShortFormat()) || timeVal.includes(date)){
+              if(element.includes("Signed Up")){
+                $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+              } else {
+                document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+              }
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          }
+          <% } %>
+        //} else {
+        //  $("#user<%= data[0]['user' + i] %>Collapse").collapse('hide');
+        //  document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+        //}
+      } else {
+        <% for(var j = 0; j < logCount[currentUser]; j++){ %>
+          var eleId = "<%= data[0]['user'+i] %><%= j %>logmsg"
+          var element = document.getElementById(eleId).innerText
+          if(type === "Login"){
+            if(element.includes("Logged In") || element.includes("Logged Out")){
+              $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          } else if(type === "File Access"){
+            if(element.includes("File Accessed")){
+              $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          } else if(type === "Signup"){
+            if(element.includes("Signed Up")){
+              $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "table-row"
+            } else {
+              document.getElementById("<%= data[0]['user'+i] %><%= j %>").style.display = "none"
+            }
+          }
+        <% } %>
+      }
+    <% } %>
+  }
+
+  function searchByUser(id){
+    var userVal = document.getElementById(id).value
+    var user = "user"+userVal+"Collapse"
+    <% for(var i = 0; i < totUsers; i++){ %>
+        var eleId = "user<%= data[0]['user'+i] %>Collapse"
+          if(eleId.includes(user)){
+            $("#user<%= data[0]['user' + i] %>Collapse").collapse('show');
+          } else {
+            $("#user<%= data[0]['user' + i] %>Collapse").collapse('hide');
+          }
+    <% } %>
+  }
+
+</script>
+<style>
+  body {
+height: 100%;
+background-color: #252525;
+text-color:#6c757d !important;
+}
+.animated{
+  animation-duration: 7s;
+}
+.form-div{
+  width: 300px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: thin;
+  border-color: #6c757d;
+}
+.frm-ctrl{
+  margin-top: 30px !important;
+  margin-left: 60px !important;
+  width:180px;
+  color: #6c757d !important;
+  border-bottom: 1px solid #6c757d !important;
+}
+.frm-ctrl-last{
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
+  margin-left: 60px !important;
+  width:180px;
+  color: #6c757d !important;
+}
+.btn-outline-warning{
+  border: 2px solid #6c757d !important;
+}
+a{
+  color: #6c757d !important;
+}
+.active-yellow-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.active-yellow-2 input.form-control[type=password]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.active-yellow-2 input.form-control[type=file]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.custom-file-input{
+  background-color:#252525 !important;
+}
+.custom-file-label{
+  background-color:#252525 !important;
+  border-color: #6c757d !important;
+  color: #6c757d !important;
+}
+.custom-file-label::after{
+  background-color: #fb3 !important;
+}
+.card-header{
+  border-bottom: 1px solid #6c757d !important;
+}
+tr{
+  border-bottom: 1px solid #fb3 !important;
+}
+td{
+  border-top: 1px solid #fb3 !important;
+}
+th[scope="row"]{
+  border-top: 1px solid #fb3 !important;
+}
+th[scope="col"]{
+  border-bottom: 1px solid #fb3 !important;
+}
+.table{
+  color: #6c757d !important;
+}
+.active-yellow-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.active-yellow-2{
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+  padding-left: 5px;
+}
+.form-control{
+  width: 27% !important;
+}
+input {
+outline: 0;
+border-width: 0 0 2px;
+background-color: #252525;
+color: #6c757d !important;
+float:right;
+}
+input:focus {
+  border-color: #fb3 !important;
+}
+select{
+  outline: 0;
+  border-width: 0 0 2px;
+  background-color: #252525;
+  color: #6c757d !important;
+  width :75%;
+  padding-top: 5px;
+}
+select:focus{
+  border-color: #fb3 !important;
+}
+[placeholder]:focus::-webkit-input-placeholder {
+    /*transition: text-indent 1.4s 0.4s ease;
+    text-indent: -100%;
+    opacity: 1;*/
+ }
+ label {
+    /* Other styling... */
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+    padding-top: 3px;
+    font-size: 18px;
+    color: #6c757d !important;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  /*align-items: flex-end;*/
+}
+.filterPara{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+i::after{
+  transform: rotate(20deg);
+}
+</style>
+<header>
+  <nav class="mb-1 navbar navbar-expand-lg navbar-dark top lighten-1">
+  <a class="navbar-brand" href="#"><strong>FTP Server</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+    aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="http://<%= baseURL %>">Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://<%= ip %>:3100/logs">Logs
+        </a>
+      </li>
+      <!--<div class="custom-control custom-switch">
+        <input type="s" class="custom-control-input" id="customSwitches">
+        <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+      </div>-->
+    </ul>
+    <% if(loggedIn == "true") { %>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link" href="http://<%= ip %>:3100/logout">Logout</a>
+      </li>
+    </ul>
+    <% } %>
+  </div>
+</nav>
+</header>
+<body>
+    <div class="container">
+      <div class="flex-center flex-column">
+        <p class="animated fadeIn text-muted" style="padding-top:20px;padding-bottom:10px;">
+          <font size="100px">Logs!</font>
+        </p>
+        <form>
+          <p class="filterPara">
+            <label for="user">User</label>
+            <input class="" id="user" value="" type="text" placeholder="User" aria-label="Search" oninput="searchByUser(this.id)">
+          </p>
+          <p class="filterPara">
+            <label for="type">Type</label>
+            <!--<input class="" id="type" value="" type="text" placeholder="Type" aria-label="Search" oninput="search(this.id)">-->
+            <select class="" id="type" name="type" oninput="searchByType(this.id)">
+              <option value="" hidden>Select Value</option>
+              <option value="Login">Login/Logout</option>
+              <option value="Signup">Signup</option>
+              <option value="File Access">File Access</option>
+            </select>
+          </p>
+          <p class="filterPara">
+            <label for="date">Date</label>
+            <input class="" id="date" value="" type="date" placeholder="Date" aria-label="Search" oninput="search(this.id)">
+          </p>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <% for (var i = 0; i < totUsers; i++) { %>
+            <div class="accordion md-accordion" id="accordionEx<%= i %>" role="tablist" aria-multiselectable="false">
+              <!-- Accordion card -->
+              <!-- Card header -->
+              <div class="card-header" role="tab" id="headingOne<%= i %>">
+                <a data-toggle="collapse" data-parent="#accordionEx<%= i %>" href="#user<%= data[0]['user' + i] %>Collapse" aria-expanded="false"
+                  aria-controls="user<%= data[0]['user' + i] %>Collapse">
+                  <h5 class="mb-0">
+                    <%= data[0]['user' + i] %> <i class="fas fa-angle-down rotate-icon"></i>
+                  </h5>
+                </a>
+              </div>
+              <!-- Card body -->
+              <div id="user<%= data[0]['user' + i] %>Collapse" class="collapse" role="tabpanel" aria-labelledby="headingOne<%= i %>" data-parent="#accordionEx<%= i %>">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Ip</th>
+                          <th scope="col">Message</th>
+                          <th scope="col">File Accessed</th>
+                          <th scope="col">Preview</th>
+                          <th scope="col">Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% var user = data[0]['user'+i] %>
+                        <% for(var j = 0; j < logCount[user]; j++) { %>
+                          <tr id="<%= data[0]['user'+i] %><%= j %>">
+                            <td id="<%= data[0]['user'+i] %><%= j %>logip"><%= logData[user]["log"+j]['ip'] %></td>
+                            <td id="<%= data[0]['user'+i] %><%= j %>logmsg"><%= logData[user]["log"+j]['msg'] %></td>
+                            <td id="<%= data[0]['user'+i] %><%= j %>logfile"><%= logData[user]["log"+j]['file'] %></td>
+                            <td id="<%= data[0]['user'+i] %><%= j %>logpreview"><%= logData[user]["log"+j]['previewStatus'] %></td>
+                            <td id="<%= data[0]['user'+i] %><%= j %>logtime"><%= logData[user]["log"+j]['time'] %></td>
+                          </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!--<div class="spinner-grow text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>-->
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/jquery.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/popper.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/mdb.min.js"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/addons/datatables.min.js"></script>
+<script type="text/javascript">
+  $('#popoverData').popover();
+</script>
+
+
+</body>
+</html>

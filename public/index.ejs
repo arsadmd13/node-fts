@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>FTP</title>
+  <script>
+    function confirm(){
+      alert('Are you sure you want to download this file?')
+    }
+  </script>
+</head>
+
+
+<body>
+  <% if (success == "Success") { %>
+    <% for (var i = 0; i < count; i++) { %>
+      <p><a href="http://<%= baseURL %><%= data[0]['rurl'+i] %>/<%= data[0]['key'+i] %>" onclick="confirm()"><%= data[0]['key'+i] %></a></p>
+      <%= data[0]['rurl'+i] %>
+    <% } %>
+  <% } %>
+</body>
+
+
+</html>

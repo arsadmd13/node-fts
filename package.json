@@ -1,0 +1,31 @@
+{
+  "name": "file-transfer-server",
+  "version": "1.0.0",
+  "description": "A file transfer server to send files through local network",
+  "main": "/temp.js",
+  "nodemonConfig": {
+    "ignore": [
+      "database/logs.json",
+      "database/db.json",
+      "database/perm.json"
+    ]
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "arsad@etacodes",
+  "license": "ISC",
+  "bin": {
+    "ftp": "./temp.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0"
+  }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Sign-Up</title>
+  <link rel="icon" href="http://<%= ip %>:3100/assets/?loc=img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/mdb.min.css">
+  <link rel="stylesheet" href="http://<%= ip %>:3100/assets/?loc=css/style.css">
+  <link href="http://<%= ip %>:3100/assets/?loc=css/addons/datatables.min.css" rel="stylesheet">
+
+</head>
+<style>
+  body {
+height: 100%;
+background-color: #252525;
+text-color:#6c757d !important;
+}
+.animated{
+  animation-duration: 7s;
+}
+.form-div{
+  width: 300px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: thin;
+  border-color: #6c757d;
+}
+.frm-ctrl{
+  margin-top: 30px !important;
+  margin-left: 60px !important;
+  width:180px;
+  color: #6c757d !important;
+  border-bottom: 1px solid #6c757d !important;
+}
+.frm-ctrl-last{
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
+  margin-left: 60px !important;
+  width:180px;
+  color: #6c757d !important;
+}
+.btn-outline-warning{
+  border: 2px solid #6c757d !important;
+}
+a{
+  color: #6c757d !important;
+}
+.active-yellow-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.active-yellow-2 input.form-control[type=password]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.active-yellow-2 input.form-control[type=file]:focus:not([readonly]) {
+  border-bottom: 1px solid #fb3;
+  box-shadow: 0 1px 0 0 #fb3;
+}
+.custom-file-input{
+  background-color:#252525 !important;
+}
+.custom-file-label{
+  background-color:#252525 !important;
+  border-color: #6c757d !important;
+  color: #6c757d !important;
+}
+.custom-file-label::after{
+  background-color: #fb3 !important;
+}
+</style>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="flex-center flex-column">
+            <p class="animated fadeIn text-muted" style="padding-top:200px;padding-bottom:10px;">
+              <font size="100px">Upload!</font>
+            </p><br><br>
+            <div class="custom-file">
+              <input type="file" class="animated custom-file-input active-yellow-2" style="width:100px !important;padding-left:50px;" id="inputGroupFile01" name="document"
+                aria-describedby="inputGroupFileAddon01">
+              <label class="animated custom-file-label active-yellow-2" style="width:300 !important;" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+
+
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/jquery.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/popper.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/mdb.min.js"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript" src="http://<%= ip %>:3100/assets/?loc=js/addons/datatables.min.js"></script>
+<script type="text/javascript">
+  $('#popoverData').popover();
+</script>
+
+
+</body>
+</html>
