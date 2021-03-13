@@ -1,5 +1,5 @@
 {
-  "name": "node-ftp",
+  "name": "node-fts",
   "version": "1.0.0",
   "description": "A file transfer server to access files across devices in a local network",
   "main": "/temp.js",
@@ -11,12 +11,12 @@
     ]
   },
   "scripts": {
-    "start": "node ftp.js"
+    "start": "node fts.js"
   },
   "author": "arsad@etacodes",
   "license": "ISC",
   "bin": {
-    "ftp": "./ftp.js"
+    "fts": "./fts.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
