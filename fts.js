@@ -82,26 +82,34 @@ http.createServer(function (request, response) {
               var ext = "ext" + count;
               if(request.url === "/") {
                 dataObj[key] = file;
-                dataObj[rurl] = ""
-                if(fs.lstatSync(filePath + "/" + file).isDirectory()){
-                  dataObj[isDir] = "true"
-                } else{
-                  dataObj[isDir] = "false"
-                  var extname = getExtension(filePath + '/' + file)
-
-                  dataObj[ext] = extname
+                dataObj[rurl] = "";
+                try {
+                  if(fs.lstatSync(filePath + "/" + file).isDirectory()){
+                    dataObj[isDir] = "true"
+                  } else{
+                    dataObj[isDir] = "false"
+                    var extname = getExtension(filePath + '/' + file)
+  
+                    dataObj[ext] = extname
+                  }
+                  dataObj[crurl] = "";
+                } catch (err) {
+                  console.log(err);
                 }
-                dataObj[crurl] = ""
               } else {
                 dataObj[key] = file;
-                dataObj[rurl] = request.url
-                if(fs.lstatSync(filePath + "/" + file).isDirectory()){
-                  dataObj[isDir] = "true"
-                } else{
-                  dataObj[isDir] = "false"
-                  var extname = getExtension(filePath + '/' + file)
-                  dataObj[ext] = extname
-                  console.log(extname);
+                dataObj[rurl] = request.url;
+                try {
+                  if(fs.lstatSync(filePath + "/" + file).isDirectory()){
+                    dataObj[isDir] = "true"
+                  } else{
+                    dataObj[isDir] = "false"
+                    var extname = getExtension(filePath + '/' + file)
+                    dataObj[ext] = extname
+                    console.log(extname);
+                  }
+                } catch (err) {
+                  console.log(err)
                 }
                 // var mykey = crypto.createCipher('aes-128-cbc', 'thisisfilepathkey', 'keykeykey');
                 // var encrypted = mykey.update(request.url, 'utf8', 'hex')
@@ -207,7 +215,7 @@ require('./src/routes/auth.routes')(app)
 require('./src/routes/log.routes')(app)
 require('./src/routes/misc.routes')(app)
 require('./src/routes/app.routes')(app)
-require('./src/routes/share-files.route')(app)
+// require('./src/routes/share-files.route')(app);
 
 app.get('/assets', (req, res) => {
   res.sendFile(__dirname + '/public/' + req.query.loc)
